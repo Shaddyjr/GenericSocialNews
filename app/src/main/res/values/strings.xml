@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">GenericSocialNews</string>
+    <string name="authorAndDate">Written by %1$s on %2$s</string>
+    <string name="society">Society</string>
+    <string name="readTime">Read Time: %1$.2f min.</string>
+    <string name="empty">No new stories found</string>
+    <string name="noInternet">No internet connection</string>
 </resources>
