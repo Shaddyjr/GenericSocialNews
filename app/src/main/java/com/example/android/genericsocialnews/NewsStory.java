@@ -1,5 +1,7 @@
 package com.example.android.genericsocialnews;
 
+import android.graphics.Bitmap;
+
 public class NewsStory {
 
     private Integer wordCount;
@@ -11,6 +13,7 @@ public class NewsStory {
                 trailText,
                 thumbnail,
                 url;
+    private Bitmap bitmap;
 
     public NewsStory(Integer count, String... args) {
         wordCount   = count;
@@ -21,6 +24,7 @@ public class NewsStory {
         trailText   = args[4];
         thumbnail   = args[5];
         url         = args[6];
+        bitmap      = null;
     }
 
     /**
@@ -79,4 +83,24 @@ public class NewsStory {
         return url;
     }
 
+    /**
+     * Caches the bitmap.
+     */
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
+
+    /**
+     * Checks if this object has a bitmap.
+     */
+    public boolean hasBitmap(){
+        return bitmap!=null;
+    }
+
+    /**
+     * Returns bitmap.
+     */
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
 }

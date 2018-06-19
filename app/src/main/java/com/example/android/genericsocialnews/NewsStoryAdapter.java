@@ -1,6 +1,7 @@
 package com.example.android.genericsocialnews;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -36,17 +37,30 @@ public class NewsStoryAdapter extends ArrayAdapter<NewsStory>{
         //SECTION
         TextView sectionView = convertView.findViewById(R.id.section);
         sectionView.setText(newsStory.getSection());
+
         //TITLE
         TextView titleView = convertView.findViewById(R.id.title);
         titleView.setText(newsStory.getTitle());
+
         //IMAGE
         ImageView imageView = convertView.findViewById(R.id.img);
-        String imageURL = newsStory.getThumbnail();
-        if(!TextUtils.isEmpty(imageURL)){
+        imageView.setImageBitmap(null);
+
+        if(newsStory.hasBitmap()){
+            Bitmap bitmap = newsStory.getBitmap();
+            imageView.setImageBitmap(bitmap);
             imageView.setVisibility(View.VISIBLE);
-            // TODO: add download image task
         }else{
-            imageView.setVisibility(View.GONE);
+            String imageURL = newsStory.getThumbnail();
+            if(!TextUtils.isEmpty(imageURL)){
+                imageView.setVisibility(View.VISIBLE);
+
+                // Adding image load on new thread
+                ImageDownloader imageDownloader = new ImageDownloader();
+                imageDownloader.download(newsStory, imageView);
+            }else{
+                imageView.setVisibility(View.GONE);
+            }
         }
 
         //READTIME
