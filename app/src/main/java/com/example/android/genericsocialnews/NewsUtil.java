@@ -19,10 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
+/**
+ * Utility class that handles fetching data from API.
+ */
 public class NewsUtil {
-    // TODO: add documentation for everything
     private static String LOG_TAG = NewsUtil.class.getSimpleName();
 
+    /**
+     * Returns List of NewsStory objects parsed from API call.
+     */
     public static List<NewsStory> fetchNewsData(String urlString){
         URL url = createUrl(urlString);
 
@@ -136,7 +141,7 @@ public class NewsUtil {
                 if(tags.length()>0){
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                         StringJoiner joiner = null;
-                        joiner = new StringJoiner(",");
+                        joiner = new StringJoiner(" and ");
                         for(int j = 0; j<tags.length();j++){
                             JSONObject authorObj = tags.getJSONObject(j);
                             joiner.add(authorObj.getString("webTitle"));

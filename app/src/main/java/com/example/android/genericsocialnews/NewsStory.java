@@ -2,6 +2,9 @@ package com.example.android.genericsocialnews;
 
 import android.graphics.Bitmap;
 
+/**
+ * Model class for news articles.
+ */
 public class NewsStory {
 
     private Integer wordCount;

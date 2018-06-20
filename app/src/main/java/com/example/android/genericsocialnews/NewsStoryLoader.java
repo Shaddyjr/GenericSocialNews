@@ -6,6 +6,9 @@ import android.util.Log;
 
 import java.util.List;
 
+/**
+ * Loader for NewStories.
+ */
 public class NewsStoryLoader extends AsyncTaskLoader<List<NewsStory>> {
     private String mURL;
     public NewsStoryLoader(Context context, String URL) {

@@ -19,6 +19,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Main activity.
+ */
 public class NewsActivity extends AppCompatActivity  implements LoaderManager.LoaderCallbacks<List<NewsStory>> {
 
     private String GUARDIAN_URL = "https://content.guardianapis.com/search?api-key=ddff30e5-4cd8-4c47-baf3-548367aa8cb2&section=society&&page-size=50&format=json&show-fields=trailText,thumbnail,wordcount,starRating&show-tags=contributor";
@@ -92,6 +95,9 @@ public class NewsActivity extends AppCompatActivity  implements LoaderManager.Lo
         mAdapter.clear();
     }
 
+    /**
+     * Helper method that returns true if the network is connected.
+     */
     private boolean checkNetworkConnection(){
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();

@@ -1,29 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/matchParents">
 
     <ListView
         android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
+        style="@style/matchParents"/>
 
     <!--empty state-->
     <TextView
         android:id="@+id/empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        />
+        style="@style/wrapContents.centered" />
 
     <!--progress circle-->
     <ProgressBar
         android:id="@+id/progBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        />
+        style="@style/wrapContents.centered" />
 
 </RelativeLayout>

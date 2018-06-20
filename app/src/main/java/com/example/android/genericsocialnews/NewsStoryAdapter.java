@@ -19,6 +19,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Adapter for handling NewsStories.
+ */
 public class NewsStoryAdapter extends ArrayAdapter<NewsStory>{
     private static String LOG_TAG = NewsStoryAdapter.class.getSimpleName();
 

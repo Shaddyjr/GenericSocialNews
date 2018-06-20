@@ -2,55 +2,38 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp"
-    >
+    style="@style/listItemContainer">
 
     <TextView
         android:id="@+id/section"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
+        style="@style/wrapContents.section"
         tools:text="Section"
         />
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/section"
-        android:layout_alignParentLeft="true"
+        style="@style/wrapContents.title"
         tools:text="NEW STORY"
         />
+
     <ImageView
         android:id="@+id/img"
-        android:layout_width="300dp"
-        android:layout_height="150dp"
-        android:scaleType="centerCrop"
-        android:layout_below="@+id/title"
-        android:layout_centerHorizontal="true"
+        style="@style/listItemImg"
         />
+
     <TextView
         android:id="@+id/readTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/img"
+        style="@style/wrapContents.readTime"
         tools:text="Read Time: 23 min."
         />
     <TextView
         android:id="@+id/trailText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/readTime"
+        style="@style/wrapContents.trailText"
         tools:text="Trailing text about story"
         />
     <TextView
         android:id="@+id/authorAndDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/wrapContents.authorAndDate"
         tools:text="Written by Blah on may 34, 2013"
-        android:layout_below="@+id/trailText"
         />
 </RelativeLayout>

@@ -8,4 +8,57 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--Basic layout-->
+    <style name="matchParents">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="wrapContents">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="wrapContents.centered">
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+
+    <!--List Item layout-->
+    <style name="listItemContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="wrapContents.section">
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignParentEnd">true</item>
+    </style>
+
+    <style name="wrapContents.title">
+        <item name="android:layout_below">@+id/section</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentStart">true</item>
+    </style>
+
+    <style name="listItemImg">
+        <item name="android:layout_below">@+id/title</item>
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_height">150dp</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="wrapContents.readTime">
+        <item name="android:layout_below">@+id/img</item>
+    </style>
+
+    <style name="wrapContents.trailText">
+        <item name="android:layout_below">@+id/readTime</item>
+    </style>
+
+    <style name="wrapContents.authorAndDate">
+        <item name="android:layout_below">@+id/trailText</item>
+    </style>
 </resources>

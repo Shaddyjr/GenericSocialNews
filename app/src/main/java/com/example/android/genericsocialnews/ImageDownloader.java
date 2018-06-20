@@ -12,11 +12,20 @@ import android.widget.ImageView;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 
-//Great article! https://android-developers.googleblog.com/2010/07/multithreading-for-performance.html
+
+
+/**
+ * Responsible for handling downloading images for ListView list items.
+ *
+ * @see "https://android-developers.googleblog.com/2010/07/multithreading-for-performance.html"
+ */
 public class ImageDownloader {
+
+    /**
+     * Commences image download as long as the newsStory is the same as the one associated with the given imageView.
+     */
     public void download(NewsStory newsStory, ImageView imageView){
-        String url = newsStory.getThumbnail();
-        if(cancelDownload(url,imageView)){
+        if(cancelDownload(newsStory,imageView)){
             DownloadImageTask task = new DownloadImageTask(imageView);
             DownloadedDrawable downloadedDrawable = new DownloadedDrawable(task);
             imageView.setImageDrawable(downloadedDrawable);
@@ -24,22 +33,31 @@ public class ImageDownloader {
         }
     }
 
-    private static boolean cancelDownload(String url, ImageView imageView){
+    /**
+     * Returns true if the current download should be cancelled.
+     * This should only really occur if the user is quickly scrolling and a recycled imageView needs a more current image.
+     */
+    private static boolean cancelDownload(NewsStory newsStory, ImageView imageView){
         DownloadImageTask  task = getDownloaderTask(imageView);
 
         if(task != null){
-            String oldURL = task.newsStory.getThumbnail();
-            if((oldURL==null)||(!oldURL.equals(url))){
+            NewsStory taskNewsStory = task.newsStory;
+            if((taskNewsStory == null)||(taskNewsStory != newsStory)){
                 task.cancel(true);
             }
             else{
-                // same url, so don't cancel
+                // same NewStory, so don't cancel
                 return false;
             }
         }
 
         return true;
     }
+
+    /**
+     * Responsible for handling the background task.
+     * Note the use of WeakReference to handle memory leaks.
+     */
     public class DownloadImageTask extends AsyncTask<NewsStory, Void, Bitmap> {
         private String LOG_TAG = DownloadImageTask.class.getSimpleName();
         private final WeakReference<ImageView> imageViewRef;
@@ -74,6 +92,7 @@ public class ImageDownloader {
             if(imageViewRef != null) {
                 ImageView imageView = imageViewRef.get();
                 DownloadImageTask downloadImageTask = getDownloaderTask(imageView);
+                newsStory.setBitmap(bitmap); // image cached within NewStory object
                 if (this == downloadImageTask) {
                     imageView.setImageBitmap(bitmap);
                 }
@@ -82,6 +101,9 @@ public class ImageDownloader {
 
     }
 
+    /**
+     * Helper that returns the task associated with the imageView.
+     */
     private static DownloadImageTask getDownloaderTask(ImageView imageView){
         if(imageView != null){
             Drawable drawable = imageView.getDrawable();
