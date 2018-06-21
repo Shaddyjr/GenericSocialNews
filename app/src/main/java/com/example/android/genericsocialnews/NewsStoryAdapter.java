@@ -22,7 +22,7 @@ import java.util.Locale;
 /**
  * Adapter for handling NewsStories.
  */
-public class NewsStoryAdapter extends ArrayAdapter<NewsStory>{
+public class NewsStoryAdapter extends ArrayAdapter<NewsStory> {
     private static String LOG_TAG = NewsStoryAdapter.class.getSimpleName();
 
     public NewsStoryAdapter(@NonNull Context context, List<NewsStory> newsStories) {
@@ -32,7 +32,7 @@ public class NewsStoryAdapter extends ArrayAdapter<NewsStory>{
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        if(convertView==null){
+        if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
         NewsStory newsStory = getItem(position);
@@ -49,19 +49,19 @@ public class NewsStoryAdapter extends ArrayAdapter<NewsStory>{
         ImageView imageView = convertView.findViewById(R.id.img);
         imageView.setImageBitmap(null);
 
-        if(newsStory.hasBitmap()){
+        if (newsStory.hasBitmap()) {
             Bitmap bitmap = newsStory.getBitmap();
             imageView.setImageBitmap(bitmap);
             imageView.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             String imageURL = newsStory.getThumbnail();
-            if(!TextUtils.isEmpty(imageURL)){
+            if (!TextUtils.isEmpty(imageURL)) {
                 imageView.setVisibility(View.VISIBLE);
 
                 // Adding image load on new thread
                 ImageDownloader imageDownloader = new ImageDownloader();
                 imageDownloader.download(newsStory, imageView);
-            }else{
+            } else {
                 imageView.setVisibility(View.GONE);
             }
         }
@@ -80,7 +80,14 @@ public class NewsStoryAdapter extends ArrayAdapter<NewsStory>{
         //AUTHOR AND DATE
         TextView authorAndDateView = convertView.findViewById(R.id.authorAndDate);
         String date = getDate(newsStory.getDate());
-        String authorAndDateString = getContext().getResources().getString(R.string.authorAndDate, newsStory.getAuthor(), date);
+        String author = newsStory.getAuthor();
+        String authorAndDateString;
+        if (author == null) {
+            authorAndDateString = getContext().getResources().getString(R.string.date, date);
+        } else {
+            authorAndDateString = getContext().getResources().getString(R.string.authorAndDate, newsStory.getAuthor(), date);
+        }
+
         authorAndDateView.setText(authorAndDateString);
 
         return convertView;
@@ -89,14 +96,14 @@ public class NewsStoryAdapter extends ArrayAdapter<NewsStory>{
     /**
      * Returns formatted date from ISO string.
      */
-    private String getDate(String str){
+    private String getDate(String str) {
         String[] arr = str.split("T");
-        DateFormat formatter = new SimpleDateFormat("yyyy-mm-d",Locale.US);
+        DateFormat formatter = new SimpleDateFormat("yyyy-mm-d", Locale.US);
         Date date = null;
         try {
-             date = formatter.parse(arr[0]);
-        }catch(java.text.ParseException e){
-            Log.e(LOG_TAG, "Could not parse date",e);
+            date = formatter.parse(arr[0]);
+        } catch (java.text.ParseException e) {
+            Log.e(LOG_TAG, "Could not parse date", e);
         }
         SimpleDateFormat dateFormatter = new SimpleDateFormat("MMM d, yyyy", Locale.US);
 
@@ -106,7 +113,7 @@ public class NewsStoryAdapter extends ArrayAdapter<NewsStory>{
     /**
      * Average person can read 130wpm.
      */
-    private double getReadTime(int wordCount){
-        return wordCount/130.0;
+    private double getReadTime(int wordCount) {
+        return wordCount / 130.0;
     }
 }

@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Main activity.
  */
-public class NewsActivity extends AppCompatActivity  implements LoaderManager.LoaderCallbacks<List<NewsStory>> {
+public class NewsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<NewsStory>> {
 
     private String GUARDIAN_URL = "https://content.guardianapis.com/search?api-key=ddff30e5-4cd8-4c47-baf3-548367aa8cb2&section=society&&page-size=50&format=json&show-fields=trailText,thumbnail,wordcount,starRating&show-tags=contributor";
     private static final int NEWS_STORY_LOADER_ID = 0;
@@ -38,39 +38,39 @@ public class NewsActivity extends AppCompatActivity  implements LoaderManager.Lo
         setContentView(R.layout.newsstory_activity);
 
         progressBar = findViewById(R.id.progBar);
-        emptyView   = findViewById(R.id.empty);
+        emptyView = findViewById(R.id.empty);
         // if no internet, report to user and do nothing
-        if(!checkNetworkConnection()){
+        if (!checkNetworkConnection()) {
             progressBar.setVisibility(View.GONE);
             emptyView.setText(R.string.noInternet);
             return;
         }
 
-        listView    = findViewById(R.id.list);
+        listView = findViewById(R.id.list);
         listView.setEmptyView(emptyView);
 
-        mAdapter    = new NewsStoryAdapter(this, new ArrayList<NewsStory>());
+        mAdapter = new NewsStoryAdapter(this, new ArrayList<NewsStory>());
         listView.setAdapter(mAdapter);
 
         // Setting on item click listener to open url of news story
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                NewsStory newsStory= mAdapter.getItem(position);
+                NewsStory newsStory = mAdapter.getItem(position);
                 String url = newsStory.getUrl();
 
                 // ensure's url is parsed properly
                 Uri newsStoryUri = Uri.parse(url);
 
                 // creating intent
-                Intent intent = new Intent(Intent.ACTION_VIEW,newsStoryUri);
+                Intent intent = new Intent(Intent.ACTION_VIEW, newsStoryUri);
                 startActivity(intent);
             }
         });
 
         // loader that actually handles the http request from API
         LoaderManager loaderManager = getLoaderManager();
-        loaderManager.initLoader(NEWS_STORY_LOADER_ID,null, this);
+        loaderManager.initLoader(NEWS_STORY_LOADER_ID, null, this);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class NewsActivity extends AppCompatActivity  implements LoaderManager.Lo
     public void onLoadFinished(Loader<List<NewsStory>> loader, List<NewsStory> newsStories) {
         mAdapter.clear();
 
-        if(newsStories != null && !newsStories.isEmpty()){
+        if (newsStories != null && !newsStories.isEmpty()) {
             mAdapter.addAll(newsStories);
         }
 
@@ -98,7 +98,7 @@ public class NewsActivity extends AppCompatActivity  implements LoaderManager.Lo
     /**
      * Helper method that returns true if the network is connected.
      */
-    private boolean checkNetworkConnection(){
+    private boolean checkNetworkConnection() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();

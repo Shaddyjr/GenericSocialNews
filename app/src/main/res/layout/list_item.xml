@@ -1,39 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/listItemContainer">
 
     <TextView
         android:id="@+id/section"
-        style="@style/wrapContents.section"
-        tools:text="Section"
-        />
+        style="@style/wrapContents.section" />
 
     <TextView
         android:id="@+id/title"
-        style="@style/wrapContents.title"
-        tools:text="NEW STORY"
-        />
+        style="@style/title" />
 
     <ImageView
         android:id="@+id/img"
-        style="@style/listItemImg"
-        />
+        style="@style/listItemImg" />
 
     <TextView
         android:id="@+id/readTime"
-        style="@style/wrapContents.readTime"
-        tools:text="Read Time: 23 min."
-        />
+        style="@style/wrapContents.readTime" />
+
     <TextView
         android:id="@+id/trailText"
-        style="@style/wrapContents.trailText"
-        tools:text="Trailing text about story"
-        />
+        style="@style/wrapContents.trailText" />
+
     <TextView
         android:id="@+id/authorAndDate"
-        style="@style/wrapContents.authorAndDate"
-        tools:text="Written by Blah on may 34, 2013"
-        />
+        style="@style/wrapContents.authorAndDate" />
 </RelativeLayout>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/matchParents">
+    style="@style/matchParents.mainContainer">
 
     <ListView
         android:id="@+id/list"
-        style="@style/matchParents"/>
+        style="@style/matchParents.ListView" />
 
     <!--empty state-->
     <TextView

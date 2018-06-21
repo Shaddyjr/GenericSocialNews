@@ -9,25 +9,25 @@ public class NewsStory {
 
     private Integer wordCount;
     private String
-                title,
-                section,
-                date,
-                author,
-                trailText,
-                thumbnail,
-                url;
+            title,
+            section,
+            date,
+            author,
+            trailText,
+            thumbnail,
+            url;
     private Bitmap bitmap;
 
     public NewsStory(Integer count, String... args) {
-        wordCount   = count;
-        title       = args[0];
-        section     = args[1];
-        date        = args[2];
-        author      = args[3];
-        trailText   = args[4];
-        thumbnail   = args[5];
-        url         = args[6];
-        bitmap      = null;
+        wordCount = count;
+        title = args[0];
+        section = args[1];
+        date = args[2];
+        author = args[3];
+        trailText = args[4];
+        thumbnail = args[5];
+        url = args[6];
+        bitmap = null;
     }
 
     /**
@@ -96,8 +96,8 @@ public class NewsStory {
     /**
      * Checks if this object has a bitmap.
      */
-    public boolean hasBitmap(){
-        return bitmap!=null;
+    public boolean hasBitmap() {
+        return bitmap != null;
     }
 
     /**

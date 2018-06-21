@@ -13,7 +13,6 @@ import java.io.InputStream;
 import java.lang.ref.WeakReference;
 
 
-
 /**
  * Responsible for handling downloading images for ListView list items.
  *
@@ -24,8 +23,8 @@ public class ImageDownloader {
     /**
      * Commences image download as long as the newsStory is the same as the one associated with the given imageView.
      */
-    public void download(NewsStory newsStory, ImageView imageView){
-        if(cancelDownload(newsStory,imageView)){
+    public void download(NewsStory newsStory, ImageView imageView) {
+        if (cancelDownload(newsStory, imageView)) {
             DownloadImageTask task = new DownloadImageTask(imageView);
             DownloadedDrawable downloadedDrawable = new DownloadedDrawable(task);
             imageView.setImageDrawable(downloadedDrawable);
@@ -37,15 +36,14 @@ public class ImageDownloader {
      * Returns true if the current download should be cancelled.
      * This should only really occur if the user is quickly scrolling and a recycled imageView needs a more current image.
      */
-    private static boolean cancelDownload(NewsStory newsStory, ImageView imageView){
-        DownloadImageTask  task = getDownloaderTask(imageView);
+    private static boolean cancelDownload(NewsStory newsStory, ImageView imageView) {
+        DownloadImageTask task = getDownloaderTask(imageView);
 
-        if(task != null){
+        if (task != null) {
             NewsStory taskNewsStory = task.newsStory;
-            if((taskNewsStory == null)||(taskNewsStory != newsStory)){
+            if ((taskNewsStory == null) || (taskNewsStory != newsStory)) {
                 task.cancel(true);
-            }
-            else{
+            } else {
                 // same NewStory, so don't cancel
                 return false;
             }
@@ -70,16 +68,16 @@ public class ImageDownloader {
 
         @Override
         protected Bitmap doInBackground(NewsStory... newsStories) {
-            newsStory= newsStories[0];
+            newsStory = newsStories[0];
             String url = newsStory.getThumbnail();
             Bitmap bitmap = null;
-            try{
+            try {
                 InputStream in = new java.net.URL(url).openStream();
                 bitmap = BitmapFactory.decodeStream(in);
-            }catch (java.net.MalformedURLException e){
-                Log.e(LOG_TAG,"Could not properly form image URL",e);
-            }catch (java.io.IOException e){
-                Log.e(LOG_TAG,"IO exception",e);
+            } catch (java.net.MalformedURLException e) {
+                Log.e(LOG_TAG, "Could not properly form image URL", e);
+            } catch (java.io.IOException e) {
+                Log.e(LOG_TAG, "IO exception", e);
             }
 
             return bitmap;
@@ -88,8 +86,8 @@ public class ImageDownloader {
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
-            if(isCancelled()) bitmap = null;
-            if(imageViewRef != null) {
+            if (isCancelled()) bitmap = null;
+            if (imageViewRef != null) {
                 ImageView imageView = imageViewRef.get();
                 DownloadImageTask downloadImageTask = getDownloaderTask(imageView);
                 newsStory.setBitmap(bitmap); // image cached within NewStory object
@@ -104,10 +102,10 @@ public class ImageDownloader {
     /**
      * Helper that returns the task associated with the imageView.
      */
-    private static DownloadImageTask getDownloaderTask(ImageView imageView){
-        if(imageView != null){
+    private static DownloadImageTask getDownloaderTask(ImageView imageView) {
+        if (imageView != null) {
             Drawable drawable = imageView.getDrawable();
-            if(drawable instanceof DownloadedDrawable){
+            if (drawable instanceof DownloadedDrawable) {
                 DownloadedDrawable downloadedDrawable = (DownloadedDrawable) drawable;
                 return downloadedDrawable.getTask();
             }
@@ -130,7 +128,7 @@ public class ImageDownloader {
         /**
          * Returns the stored task
          */
-        public DownloadImageTask getTask(){
+        public DownloadImageTask getTask() {
             return taskRef.get();
         }
     }

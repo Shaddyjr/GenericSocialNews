@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class NewsStoryLoader extends AsyncTaskLoader<List<NewsStory>> {
     private String mURL;
+
     public NewsStoryLoader(Context context, String URL) {
         super(context);
         mURL = URL;
@@ -24,7 +25,7 @@ public class NewsStoryLoader extends AsyncTaskLoader<List<NewsStory>> {
 
     @Override
     public List<NewsStory> loadInBackground() {
-        if(mURL.length()<1) return null;
+        if (mURL.length() < 1) return null;
         return NewsUtil.fetchNewsData(mURL);
     }
 }

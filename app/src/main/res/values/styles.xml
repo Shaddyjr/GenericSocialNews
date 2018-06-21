@@ -23,42 +23,86 @@
         <item name="android:layout_centerInParent">true</item>
     </style>
 
+    <!--Main Activity-->
+    <style name="matchParents.mainContainer">
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="matchParents.ListView">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:divider">@color/colorPrimary</item>
+        <item name="android:dividerHeight">16dp</item>
+    </style>
     <!--List Item layout-->
     <style name="listItemContainer">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">16dp</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
     </style>
 
     <style name="wrapContents.section">
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:fontFamily">sans-serif</item>
     </style>
 
-    <style name="wrapContents.title">
+    <style name="title">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_below">@+id/section</item>
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:layout_alignParentStart">true</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorLight</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
     <style name="listItemImg">
+        <item name="android:contentDescription">News Article Main Image</item>
         <item name="android:layout_below">@+id/title</item>
-        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">150dp</item>
         <item name="android:scaleType">centerCrop</item>
         <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
     </style>
 
     <style name="wrapContents.readTime">
         <item name="android:layout_below">@+id/img</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">monospace</item>
     </style>
 
     <style name="wrapContents.trailText">
         <item name="android:layout_below">@+id/readTime</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:textColor">@color/colorLight</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:maxLines">3</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
     <style name="wrapContents.authorAndDate">
         <item name="android:layout_below">@+id/trailText</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">monospace</item>
     </style>
 </resources>
