@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="smallStep">8dp</dimen>
+    <dimen name="step">16dp</dimen>
+
+    <dimen name="smallFontSize">12sp</dimen>
+    <dimen name="medFontSize">16sp</dimen>
+    <dimen name="largeFontSize">20sp</dimen>
+
+    <dimen name="imageHeight">150dp</dimen>
+</resources>

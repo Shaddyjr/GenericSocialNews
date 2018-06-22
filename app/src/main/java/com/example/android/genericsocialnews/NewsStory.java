@@ -7,103 +7,103 @@ import android.graphics.Bitmap;
  */
 public class NewsStory {
 
-    private Integer wordCount;
-    private String
-            title,
-            section,
-            date,
-            author,
-            trailText,
-            thumbnail,
-            url;
-    private Bitmap bitmap;
+    private Integer mWordCount;
+    private String mTitle;
+    private String mSection;
+    private String mDate;
+    private String mAuthor;
+    private String mTrailText;
+    private String mThumbnail;
+    private String mUrl;
+    private Bitmap mBitmap;
 
-    public NewsStory(Integer count, String... args) {
-        wordCount = count;
-        title = args[0];
-        section = args[1];
-        date = args[2];
-        author = args[3];
-        trailText = args[4];
-        thumbnail = args[5];
-        url = args[6];
-        bitmap = null;
+
+    public NewsStory(Integer count, String title, String section, String date, String author, String trailText, String thumbnail, String url) {
+        mWordCount = count;
+        mTitle     = title;
+        mSection   = section;
+        mDate      = date;
+        mAuthor    = author;
+        mTrailText = trailText;
+        mThumbnail = thumbnail;
+        mUrl       = url;
+        mBitmap    = null;
     }
 
     /**
      * Returns the wordCount.
      */
     public Integer getWordCount() {
-        return wordCount;
+        return mWordCount;
     }
 
     /**
      * Returns the author(s).
      */
     public String getAuthor() {
-        return author;
+        return mAuthor;
     }
 
     /**
      * Returns the date.
      */
     public String getDate() {
-        return date;
+        return mDate;
     }
 
     /**
      * Returns the section.
      */
     public String getSection() {
-        return section;
+        return mSection;
     }
 
     /**
      * Returns the thumbnail.
      */
     public String getThumbnail() {
-        return thumbnail;
+        return mThumbnail;
     }
 
     /**
      * Returns the title.
      */
     public String getTitle() {
-        return title;
+        return mTitle;
     }
 
     /**
      * Returns the trailText.
      */
     public String getTrailText() {
-        return trailText;
+        return mTrailText;
     }
 
     /**
      * Returns the url.
      */
     public String getUrl() {
-        return url;
+        return mUrl;
     }
 
     /**
      * Caches the bitmap.
      */
     public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
+        mBitmap = bitmap;
     }
 
     /**
      * Checks if this object has a bitmap.
      */
     public boolean hasBitmap() {
-        return bitmap != null;
+        return mBitmap != null;
     }
 
     /**
      * Returns bitmap.
      */
     public Bitmap getBitmap() {
-        return bitmap;
+        return mBitmap;
     }
 }

@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,11 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
 
                 // creating intent
                 Intent intent = new Intent(Intent.ACTION_VIEW, newsStoryUri);
-                startActivity(intent);
+                if(intent.resolveActivity(getPackageManager())!=null){
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(), getString(R.string.noBrowser), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

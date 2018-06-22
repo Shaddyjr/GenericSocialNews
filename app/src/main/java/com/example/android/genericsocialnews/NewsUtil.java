@@ -23,7 +23,23 @@ import java.util.StringJoiner;
  * Utility class that handles fetching data from API.
  */
 public class NewsUtil {
-    private static String LOG_TAG = NewsUtil.class.getSimpleName();
+    private static String LOG_TAG                 = NewsUtil.class.getSimpleName();
+    private static final int READ_TIMOUT          = 10000;
+    private static final int CONNECTION_TIMOUT    = 15000;
+
+//    PARSING JSON
+    private static final String RESPONSE            = "response";
+    private static final String RESULTS             = "results";
+    private static final String FIELDS              = "fields";
+    private static final String WEBTITLE            = "webTitle";
+    private static final String SECTIONNAME         = "sectionName";
+    private static final String WEBPUBLICATIONDATE  = "webPublicationDate";
+    private static final String TAGS                = "tags";
+    private static final String TRAILTEXT           = "trailText";
+    private static final String THUMBNAIL           = "thumbnail";
+    private static final String WORDCOUNT           = "wordcount";
+    private static final String WEBURL              = "webUrl";
+    private static final String DELIMITER           = " and ";
 
     /**
      * Returns List of NewsStory objects parsed from API call.
@@ -67,12 +83,12 @@ public class NewsUtil {
 
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000);
-            urlConnection.setConnectTimeout(15000);
+            urlConnection.setReadTimeout(READ_TIMOUT);
+            urlConnection.setConnectTimeout(CONNECTION_TIMOUT);
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
-            if (urlConnection.getResponseCode() == 200) {
+            if (urlConnection.getResponseCode() ==  java.net.HttpURLConnection.HTTP_OK) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {
@@ -120,47 +136,47 @@ public class NewsUtil {
 
         try {
             JSONObject data = new JSONObject(json);
-            JSONArray results = data.getJSONObject("response").getJSONArray("results");
+            JSONArray results = data.getJSONObject(RESPONSE).getJSONArray(RESULTS);
 
             for (int i = 0; i < results.length(); i++) {
                 JSONObject newsObj = results.getJSONObject(i);
-                JSONObject extras = newsObj.getJSONObject("fields");
+                JSONObject extras = newsObj.getJSONObject(FIELDS);
 
 
                 // REQUIRED
-                String title = newsObj.getString("webTitle");
-                String section = newsObj.getString("sectionName");
+                String title = newsObj.getString(WEBTITLE);
+                String section = newsObj.getString(SECTIONNAME);
 
                 // MUST INCLUDE IF EXISTS
                 // publication data
-                String date = newsObj.getString("webPublicationDate");
+                String date = newsObj.getString(WEBPUBLICATIONDATE);
 
                 //author(s)
-                JSONArray tags = newsObj.getJSONArray("tags");
+                JSONArray tags = newsObj.getJSONArray(TAGS);
                 String author = null;
                 if (tags.length() > 0) {
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                         StringJoiner joiner = null;
-                        joiner = new StringJoiner(" and ");
+                        joiner = new StringJoiner(DELIMITER);
                         for (int j = 0; j < tags.length(); j++) {
                             JSONObject authorObj = tags.getJSONObject(j);
-                            joiner.add(authorObj.getString("webTitle"));
+                            joiner.add(authorObj.getString(WEBTITLE));
                         }
                         author = joiner.toString();
                     } else {
-                        author = tags.getJSONObject(0).getString("webTitle");
+                        author = tags.getJSONObject(0).getString(WEBTITLE);
                     }
 
                 }
 
                 // EXTRAS
-                String trailText = extras.getString("trailText");
+                String trailText = extras.getString(TRAILTEXT);
                 String thumbnail = null;
-                if (extras.has("thumbnail")) {
-                    thumbnail = extras.getString("thumbnail");
+                if (extras.has(THUMBNAIL)) {
+                    thumbnail = extras.getString(THUMBNAIL);
                 }
-                Integer wordCount = extras.getInt("wordcount");
-                String url = newsObj.getString("webUrl");
+                Integer wordCount = extras.getInt(WORDCOUNT);
+                String url = newsObj.getString(WEBURL);
                 newsStories.add(new NewsStory(wordCount, title, section, date, author, trailText, thumbnail, url));
             }
         } catch (JSONException e) {

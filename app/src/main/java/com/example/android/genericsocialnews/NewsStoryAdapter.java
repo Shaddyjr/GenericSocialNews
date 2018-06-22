@@ -29,56 +29,72 @@ public class NewsStoryAdapter extends ArrayAdapter<NewsStory> {
         super(context, 0, newsStories);
     }
 
+
+    private class ViewHolder{
+        TextView sectionView;
+        TextView titleView;
+        ImageView imageView;
+        TextView readtimeView;
+        TextView trailTextView;
+        TextView authorAndDateView;
+    }
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        ViewHolder viewHolder;
+
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
+            viewHolder = new ViewHolder();
+            viewHolder.sectionView       = convertView.findViewById(R.id.section);
+            viewHolder.titleView         = convertView.findViewById(R.id.title);
+            viewHolder.imageView         = convertView.findViewById(R.id.img);
+            viewHolder.readtimeView      = convertView.findViewById(R.id.readTime);
+            viewHolder.trailTextView     = convertView.findViewById(R.id.trailText);
+            viewHolder.authorAndDateView = convertView.findViewById(R.id.authorAndDate);
+            convertView.setTag(viewHolder);
+        }else{
+            viewHolder = (ViewHolder) convertView.getTag();
         }
         NewsStory newsStory = getItem(position);
 
         //SECTION
-        TextView sectionView = convertView.findViewById(R.id.section);
-        sectionView.setText(newsStory.getSection());
+        viewHolder.sectionView.setText(newsStory.getSection());
 
         //TITLE
-        TextView titleView = convertView.findViewById(R.id.title);
-        titleView.setText(newsStory.getTitle());
+        viewHolder.titleView.setText(newsStory.getTitle());
 
         //IMAGE
-        ImageView imageView = convertView.findViewById(R.id.img);
-        imageView.setImageBitmap(null);
+        viewHolder.imageView.setImageBitmap(null);
 
         if (newsStory.hasBitmap()) {
             Bitmap bitmap = newsStory.getBitmap();
-            imageView.setImageBitmap(bitmap);
-            imageView.setVisibility(View.VISIBLE);
+            viewHolder.imageView.setImageBitmap(bitmap);
+            viewHolder.imageView.setVisibility(View.VISIBLE);
         } else {
             String imageURL = newsStory.getThumbnail();
             if (!TextUtils.isEmpty(imageURL)) {
-                imageView.setVisibility(View.VISIBLE);
+                viewHolder.imageView.setVisibility(View.VISIBLE);
 
                 // Adding image load on new thread
                 ImageDownloader imageDownloader = new ImageDownloader();
-                imageDownloader.download(newsStory, imageView);
+                imageDownloader.download(newsStory, viewHolder.imageView);
             } else {
-                imageView.setVisibility(View.GONE);
+                viewHolder.imageView.setVisibility(View.GONE);
             }
         }
 
         //READTIME
-        TextView readtimeView = convertView.findViewById(R.id.readTime);
         String readTimeString = getContext().getResources().getString(R.string.readTime, getReadTime(newsStory.getWordCount()));
-        readtimeView.setText(readTimeString);
+        viewHolder.readtimeView.setText(readTimeString);
 
         //TRAILTEXT
-        TextView trailTextView = convertView.findViewById(R.id.trailText);
         // getting rid of HTML elements
         String trailText = android.text.Html.fromHtml(newsStory.getTrailText()).toString();
-        trailTextView.setText(trailText);
+        viewHolder.trailTextView.setText(trailText);
 
         //AUTHOR AND DATE
-        TextView authorAndDateView = convertView.findViewById(R.id.authorAndDate);
         String date = getDate(newsStory.getDate());
         String author = newsStory.getAuthor();
         String authorAndDateString;
@@ -88,7 +104,7 @@ public class NewsStoryAdapter extends ArrayAdapter<NewsStory> {
             authorAndDateString = getContext().getResources().getString(R.string.authorAndDate, newsStory.getAuthor(), date);
         }
 
-        authorAndDateView.setText(authorAndDateString);
+        viewHolder.authorAndDateView.setText(authorAndDateString);
 
         return convertView;
     }

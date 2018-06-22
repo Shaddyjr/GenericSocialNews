@@ -6,4 +6,5 @@
     <string name="readTime">Read Time: %1$.2f min.</string>
     <string name="empty">No new stories found</string>
     <string name="noInternet">No internet connection</string>
+    <string name="noBrowser">No browser detected</string>
 </resources>
