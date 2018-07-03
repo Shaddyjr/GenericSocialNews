@@ -136,47 +136,47 @@ public class NewsUtil {
 
         try {
             JSONObject data = new JSONObject(json);
-            JSONArray results = data.getJSONObject(RESPONSE).getJSONArray(RESULTS);
+            JSONArray results = data.optJSONObject(RESPONSE).optJSONArray(RESULTS);
 
             for (int i = 0; i < results.length(); i++) {
-                JSONObject newsObj = results.getJSONObject(i);
-                JSONObject extras = newsObj.getJSONObject(FIELDS);
+                JSONObject newsObj = results.optJSONObject(i);
+                JSONObject extras = newsObj.optJSONObject(FIELDS);
 
 
                 // REQUIRED
-                String title = newsObj.getString(WEBTITLE);
-                String section = newsObj.getString(SECTIONNAME);
+                String title = newsObj.optString(WEBTITLE);
+                String section = newsObj.optString(SECTIONNAME);
 
                 // MUST INCLUDE IF EXISTS
                 // publication data
-                String date = newsObj.getString(WEBPUBLICATIONDATE);
+                String date = newsObj.optString(WEBPUBLICATIONDATE);
 
                 //author(s)
-                JSONArray tags = newsObj.getJSONArray(TAGS);
+                JSONArray tags = newsObj.optJSONArray(TAGS);
                 String author = null;
                 if (tags.length() > 0) {
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                         StringJoiner joiner = null;
                         joiner = new StringJoiner(DELIMITER);
                         for (int j = 0; j < tags.length(); j++) {
-                            JSONObject authorObj = tags.getJSONObject(j);
-                            joiner.add(authorObj.getString(WEBTITLE));
+                            JSONObject authorObj = tags.optJSONObject(j);
+                            joiner.add(authorObj.optString(WEBTITLE));
                         }
                         author = joiner.toString();
                     } else {
-                        author = tags.getJSONObject(0).getString(WEBTITLE);
+                        author = tags.optJSONObject(0).optString(WEBTITLE);
                     }
 
                 }
 
                 // EXTRAS
-                String trailText = extras.getString(TRAILTEXT);
+                String trailText = extras.optString(TRAILTEXT);
                 String thumbnail = null;
                 if (extras.has(THUMBNAIL)) {
-                    thumbnail = extras.getString(THUMBNAIL);
+                    thumbnail = extras.optString(THUMBNAIL);
                 }
-                Integer wordCount = extras.getInt(WORDCOUNT);
-                String url = newsObj.getString(WEBURL);
+                Integer wordCount = extras.optInt(WORDCOUNT);
+                String url = newsObj.optString(WEBURL);
                 newsStories.add(new NewsStory(wordCount, title, section, date, author, trailText, thumbnail, url));
             }
         } catch (JSONException e) {

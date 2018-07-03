@@ -61,7 +61,7 @@
         <item name="android:layout_marginBottom">@dimen/step</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textSize">@dimen/largeFontSize</item>
+        <item name="android:textSize">@dimen/largeTextSize</item>
         <item name="android:textColor">@color/colorLight</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
@@ -82,7 +82,7 @@
         <item name="android:layout_marginTop">@dimen/smallStep</item>
         <item name="android:layout_marginBottom">@dimen/smallStep</item>
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textSize">@dimen/smallFontSize</item>
+        <item name="android:textSize">@dimen/smallTextSize</item>
         <item name="android:fontFamily">monospace</item>
     </style>
 
@@ -91,7 +91,7 @@
         <item name="android:layout_marginLeft">@dimen/step</item>
         <item name="android:layout_marginRight">@dimen/step</item>
         <item name="android:textColor">@color/colorLight</item>
-        <item name="android:textSize">@dimen/medFontSize</item>
+        <item name="android:textSize">@dimen/medTextSize</item>
         <item name="android:maxLines">3</item>
         <item name="android:ellipsize">end</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
@@ -102,7 +102,7 @@
         <item name="android:layout_marginTop">@dimen/smallStep</item>
         <item name="android:layout_marginBottom">@dimen/smallStep</item>
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textSize">@dimen/smallFontSize</item>
+        <item name="android:textSize">@dimen/smallTextSize</item>
         <item name="android:fontFamily">monospace</item>
     </style>
 </resources>

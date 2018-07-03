@@ -1,6 +1,7 @@
 package com.example.android.genericsocialnews;
 
 import android.app.LoaderManager;
+import android.arch.core.BuildConfig;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
@@ -35,9 +36,9 @@ import java.util.Locale;
  */
 public class NewsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<NewsStory>> {
 
-    private String GUARDIAN_URL    = "https://content.guardianapis.com/search";
-    private String API_KEY         = "ddff30e5-4cd8-4c47-baf3-548367aa8cb2";
-    private int REQUEST_LIMIT      = 50;
+    final private String GUARDIAN_URL = "https://content.guardianapis.com/search";
+    private String API_KEY = com.example.android.genericsocialnews.BuildConfig.ApiKey;
+    private int REQUEST_LIMIT = 50;
     private static final int NEWS_STORY_LOADER_ID = 0;
 
     private ListView listView;
@@ -77,9 +78,9 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
 
                 // creating intent
                 Intent intent = new Intent(Intent.ACTION_VIEW, newsStoryUri);
-                if(intent.resolveActivity(getPackageManager())!=null){
+                if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
-                }else{
+                } else {
                     Toast.makeText(getApplicationContext(), getString(R.string.noBrowser), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -91,7 +92,7 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the Options Menu we specified in XML
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
@@ -124,27 +125,28 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
                     getString(R.string.settings_default_order_by_value));
 
             // in case user wants list ordered by readTime
-            if(orderBy.equals(getString(R.string.settings_order_by_readTime_value))){
+            if (orderBy.equals(getString(R.string.settings_order_by_readTime_value))) {
                 /**
                  * Comparator to sort by read time (which is derived from word count).
                  */
-                class sortByReadTime implements Comparator<NewsStory>{
+                class sortByReadTime implements Comparator<NewsStory> {
                     @Override
                     public int compare(NewsStory newsStory, NewsStory t1) {
                         return newsStory.getWordCount() - t1.getWordCount();
                     }
                 }
                 Collections.sort(newsStories, new sortByReadTime());
-            }else{
+            } else {
                 // Oddly, default order by newest still returns articles in odd order
-                class sortByDate implements Comparator<NewsStory>{
+                class sortByDate implements Comparator<NewsStory> {
                     private String LOG_TAG = this.getClass().getSimpleName();
+
                     @Override
                     public int compare(NewsStory newsStory, NewsStory t1) {
                         return getDate(t1.getDate()).compareTo(getDate(newsStory.getDate()));
                     }
 
-                    private Date getDate(String str){
+                    private Date getDate(String str) {
                         String[] arr = str.split("T");
                         DateFormat formatter = new SimpleDateFormat("yyyy-mm-d", Locale.US);
                         Date date = null;
@@ -182,7 +184,7 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
     /**
      * Returns the fully constructed URL.
      */
-    private String getUri(){
+    private String getUri() {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         String section = sharedPrefs.getString(
